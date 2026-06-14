@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KingRisers 入会フォーム</title>
+<style>
+  :root {
+    --navy: #1A2332;
+    --navy-light: #2A3850;
+    --gold: #E8B84B;
+    --gold-light: #F4D78A;
+    --cream: #FAF7F0;
+    --slate: #5C6B7A;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Hiragino Sans", "Zen Kaku Gothic New", "Yu Gothic", sans-serif;
+    background: var(--cream);
+    margin: 0;
+    padding: 0 20px;
+    color: var(--navy);
+  }
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 60%, var(--navy) 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 48px 24px 64px;
+    text-align: center;
+    margin: 0 -20px;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 60%;
+    height: 200%;
+    background: linear-gradient(135deg, transparent 45%, rgba(232,184,75,0.18) 50%, transparent 55%);
+    transform: rotate(8deg);
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    bottom: -40%;
+    left: -15%;
+    width: 50%;
+    height: 150%;
+    background: linear-gradient(135deg, transparent 45%, rgba(232,184,75,0.10) 50%, transparent 55%);
+    transform: rotate(8deg);
+  }
+  .eyebrow {
+    position: relative;
+    color: var(--gold);
+    font-size: 0.78em;
+    letter-spacing: 0.18em;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  h1 {
+    position: relative;
+    color: #fff;
+    font-size: 1.6em;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: 0.02em;
+  }
+  .subtitle {
+    position: relative;
+    color: #C7CEDA;
+    font-size: 0.88em;
+    margin-top: 10px;
+  }
+  .container {
+    max-width: 600px;
+    margin: -36px auto 40px;
+    background: #fff;
+    border-radius: 14px;
+    padding: 36px 30px;
+    box-shadow: 0 12px 32px rgba(26,35,50,0.12);
+    position: relative;
+    z-index: 2;
+  }
+  label {
+    display: block;
+    font-weight: 700;
+    margin-top: 22px;
+    margin-bottom: 8px;
+    color: var(--navy);
+    font-size: 0.95em;
+  }
+  .required {
+    display: inline-block;
+    color: #fff;
+    background: var(--gold);
+    font-size: 0.7em;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  input[type="text"], select, textarea {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1.5px solid #E2E6EC;
+    border-radius: 8px;
+    font-size: 1em;
+    font-family: inherit;
+    background: var(--cream);
+    color: var(--navy);
+    transition: border-color 0.15s, background 0.15s;
+  }
+  input[type="text"]:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: #fff;
+  }
+  textarea {
+    resize: vertical;
+    min-height: 90px;
+  }
+  .char-count {
+    text-align: right;
+    font-size: 0.8em;
+    color: var(--slate);
+    margin-top: 4px;
+  }
+  .other-input {
+    margin-top: 8px;
+    display: none;
+  }
+  button {
+    margin-top: 32px;
+    width: 100%;
+    padding: 16px;
+    background: var(--navy);
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.05em;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.15s;
+    box-shadow: 0 4px 14px rgba(26,35,50,0.25);
+  }
+  button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(26,35,50,0.32);
+  }
+  button:active {
+    transform: translateY(0);
+  }
+  button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+  .note {
+    font-size: 0.8em;
+    color: var(--slate);
+    margin-top: 4px;
+  }
+  #result {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    display: none;
+    font-weight: 600;
+    text-align: center;
+  }
+  #result.success {
+    background: #FFF8E8;
+    color: #8A6D1F;
+    border: 1.5px solid var(--gold-light);
+  }
+  #result.error {
+    background: #FDECEA;
+    color: #C0392B;
+    border: 1.5px solid #F5B7B1;
+  }
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="eyebrow">STUDENT ORGANIZATION</div>
+  <h1>KingRisers 入会フォーム</h1>
+  <div class="subtitle">次のステージへ挑戦する仲間を募集しています</div>
+</div>
+
+<div class="container">
+  <form id="entryForm">
+
+    <label>① 名前（フリガナ）<span class="required">必須</span></label>
+    <input type="text" id="furigana" required placeholder="例：キングライザー タロウ">
+
+    <label>② 大学<span class="required">必須</span></label>
+    <input type="text" id="university" required placeholder="例：上智大学">
+
+    <label>③ 学部・学科<span class="required">必須</span></label>
+    <input type="text" id="faculty" required placeholder="例：哲学科">
+
+    <label>④ 学年<span class="required">必須</span></label>
+    <select id="grade" required>
+      <option value="">選択してください</option>
+      <option value="1年">1年</option>
+      <option value="2年">2年</option>
+      <option value="3年">3年</option>
+      <option value="4年">4年</option>
+      <option value="大学院（修士）">大学院（修士）</option>
+      <option value="大学院（博士）">大学院（博士）</option>
+      <option value="その他">その他</option>
+    </select>
+
+    <label>⑤ MBTI<span class="required">必須</span></label>
+    <select id="mbti" required>
+      <option value="">選択してください</option>
+      <option value="INTJ（建築家）">INTJ（建築家）</option>
+      <option value="INTP（論理学者）">INTP（論理学者）</option>
+      <option value="ENTJ（指揮官）">ENTJ（指揮官）</option>
+      <option value="ENTP（討論者）">ENTP（討論者）</option>
+      <option value="INFJ（提唱者）">INFJ（提唱者）</option>
+      <option value="INFP（仲介者）">INFP（仲介者）</option>
+      <option value="ENFJ（主人公）">ENFJ（主人公）</option>
+      <option value="ENFP（広報運動家）">ENFP（広報運動家）</option>
+      <option value="ISTJ（管理者）">ISTJ（管理者）</option>
+      <option value="ISFJ（擁護者）">ISFJ（擁護者）</option>
+      <option value="ESTJ（幹部）">ESTJ（幹部）</option>
+      <option value="ESFJ（領事官）">ESFJ（領事官）</option>
+      <option value="ISTP（巨匠）">ISTP（巨匠）</option>
+      <option value="ISFP（冒険家）">ISFP（冒険家）</option>
+      <option value="ESTP（起業家）">ESTP（起業家）</option>
+      <option value="ESFP（エンターテイナー）">ESFP（エンターテイナー）</option>
+      <option value="わからない">わからない</option>
+    </select>
+
+    <label>⑥ 興味のある分野・業界<span class="required">必須</span></label>
+    <select id="industry" required onchange="toggleOtherIndustry()">
+      <option value="">選択してください</option>
+      <option value="農業">農業</option>
+      <option value="飲食">飲食</option>
+      <option value="教育">教育</option>
+      <option value="IT・テクノロジー">IT・テクノロジー</option>
+      <option value="金融">金融</option>
+      <option value="医療・福祉">医療・福祉</option>
+      <option value="広告・マーケティング">広告・マーケティング</option>
+      <option value="製造業">製造業</option>
+      <option value="エンタメ・メディア">エンタメ・メディア</option>
+      <option value="不動産・建設">不動産・建設</option>
+      <option value="その他">その他</option>
+    </select>
+    <div class="other-input" id="otherIndustryWrap">
+      <input type="text" id="otherIndustry" placeholder="具体的に入力してください">
+    </div>
+
+    <label>⑦ 志望理由<span class="required">必須</span></label>
+    <textarea id="reason" maxlength="200" required oninput="updateCharCount()" placeholder="1文字以上200文字以内で記入してください"></textarea>
+    <div class="char-count"><span id="charCount">0</span> / 200</div>
+
+    <label>⑧ InstagramアカウントのURL<span class="required">必須</span></label>
+    <input type="url" id="instagram" required placeholder="例：https://www.instagram.com/your_account/">
+
+    <label>⑨ その他何かあれば</label>
+    <textarea id="other" placeholder="任意"></textarea>
+
+    <button type="submit">送信する</button>
+    <div id="result"></div>
+  </form>
+</div>
+
+<script>
+function updateCharCount() {
+  const len = document.getElementById('reason').value.length;
+  document.getElementById('charCount').textContent = len;
+}
+
+function toggleOtherIndustry() {
+  const val = document.getElementById('industry').value;
+  document.getElementById('otherIndustryWrap').style.display = (val === 'その他') ? 'block' : 'none';
+}
+
+document.getElementById('entryForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const result = document.getElementById('result');
+  const submitBtn = this.querySelector('button[type="submit"]');
+
+  const data = {
+    furigana: document.getElementById('furigana').value,
+    university: document.getElementById('university').value,
+    faculty: document.getElementById('faculty').value,
+    grade: document.getElementById('grade').value,
+    mbti: document.getElementById('mbti').value,
+    industry: document.getElementById('industry').value === 'その他'
+      ? 'その他：' + document.getElementById('otherIndustry').value
+      : document.getElementById('industry').value,
+    reason: document.getElementById('reason').value,
+    instagram: document.getElementById('instagram').value,
+    other: document.getElementById('other').value
+  };
+
+  const ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbwEYBQU5gmLmsqvwbv_oCPOnngR5wx7NEWiY21jH8sw8_tNJ4yedoaJfiAC_FNJqD3bxQ/exec';
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = '送信中...';
+  result.style.display = 'none';
+
+  fetch(ENDPOINT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    body: JSON.stringify(data)
+  })
+    .then(() => {
+      result.className = 'success';
+      result.style.display = 'block';
+      result.textContent = '送信が完了しました。ご応募ありがとうございます！';
+      this.reset();
+      document.getElementById('charCount').textContent = '0';
+      document.getElementById('otherIndustryWrap').style.display = 'none';
+    })
+    .catch(() => {
+      result.className = 'error';
+      result.style.display = 'block';
+      result.textContent = '送信に失敗しました。通信環境を確認して再度お試しください。';
+    })
+    .finally(() => {
+      submitBtn.disabled = false;
+      submitBtn.textContent = '送信する';
+    });
+});
+</script>
+</body>
+</html>
