@@ -259,7 +259,10 @@
     <textarea id="reason" maxlength="200" required oninput="updateCharCount()" placeholder="1文字以上200文字以内で記入してください"></textarea>
     <div class="char-count"><span id="charCount">0</span> / 200</div>
 
-    <label>⑧ その他何かあれば</label>
+    <label>⑧ InstagramアカウントのURL<span class="required">必須</span></label>
+    <input type="url" id="instagram" required placeholder="例：https://www.instagram.com/your_account/">
+
+    <label>⑨ その他何かあれば</label>
     <textarea id="other" placeholder="任意"></textarea>
 
     <button type="submit">送信する</button>
@@ -293,6 +296,7 @@ document.getElementById('entryForm').addEventListener('submit', function(e) {
       ? 'その他：' + document.getElementById('otherIndustry').value
       : document.getElementById('industry').value,
     reason: document.getElementById('reason').value,
+    instagram: document.getElementById('instagram').value,
     other: document.getElementById('other').value
   };
 
