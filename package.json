@@ -13,7 +13,8 @@
     "react": "^18",
     "react-dom": "^18",
     "date-fns": "^3.6.0",
-    "lucide-react": "^0.400.0"
+    "lucide-react": "^0.400.0",
+    "zustand": "^4.5.4"
   },
   "devDependencies": {
     "typescript": "^5",
