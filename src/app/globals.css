@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #FAFAF8;
+  --bg-card: #FFFFFF;
+  --bg-subtle: #F3F3F0;
+  --text-primary: #111111;
+  --text-secondary: #6B6B6B;
+  --text-muted: #9CA3AF;
+  --border: #E5E5E2;
+  --accent: #7C3AED;
+  --accent-light: #EDE9FE;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+[data-theme="dark"] {
+  --bg: #0F0F0F;
+  --bg-card: #1A1A1A;
+  --bg-subtle: #242424;
+  --text-primary: #F0F0F0;
+  --text-secondary: #A0A0A0;
+  --text-muted: #606060;
+  --border: #2A2A2A;
+  --accent: #A78BFA;
+  --accent-light: #1E1030;
+  --shadow: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+[data-theme="neon"] {
+  --bg: #0A0F1E;
+  --bg-card: #111827;
+  --bg-subtle: #1a2234;
+  --text-primary: #E0F2FE;
+  --text-secondary: #7DD3FC;
+  --text-muted: #4B6A8A;
+  --border: #1E3A5F;
+  --accent: #10B981;
+  --accent-light: #022C22;
+  --shadow: 0 1px 3px rgba(0,0,0,0.5);
+  --shadow-md: 0 4px 16px rgba(16,185,129,0.1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted-themed { color: var(--text-muted); }
+.bg-themed { background-color: var(--bg); }
+.bg-card-themed { background-color: var(--bg-card); }
+.bg-subtle-themed { background-color: var(--bg-subtle); }
+.border-themed { border-color: var(--border); }
+.accent-color { color: var(--accent); }
+.accent-bg { background-color: var(--accent); }
+
+.timeline-bar {
+  position: relative;
+  height: 100%;
+  background-color: var(--bg-subtle);
+  border-radius: 999px;
+  overflow: hidden;
+}
